@@ -48,7 +48,17 @@ docker start mongo
 docker stop mongo
 docker rm mongo
 
+assignment: manage multiple containers
 
+dock container run -p 80:80 -d --name nginx nginx
+dock container run -p 8080:80 -d --name httpd httpd
+dock container run -p 3306:3306 -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes --name mysql mysql
+docker container logs nginx
+docker container logs httpd
+docker container logs mysql
+docker container rm ...
+docker container ls
+docker container ls -a
 
 
 
