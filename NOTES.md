@@ -50,23 +50,72 @@ docker rm mongo
 
 assignment: manage multiple containers
 
-dock container run -p 80:80 -d --name nginx nginx
-dock container run -p 8080:80 -d --name httpd httpd
-dock container run -p 3306:3306 -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes --name mysql mysql
+dock container run -p 80:80 -d --name proxy nginx
+dock container run -p 8080:80 -d --name webserver httpd
+dock container run -p 3306:3306 -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes --name db mysql
+docker container logs mysql
 docker container logs nginx
 docker container logs httpd
-docker container logs mysql
-docker container rm ...
+
+curl localhost
+curl localhost:8080
+
+docker container ps
+docker container ps -a
+docker container stop ..ids..
+docker container rm ..ids..
 docker container ls
 docker container ls -a
 
+docker container top
+docker container inspect
+docker container stats
+
+docker container run -it  // run interactively
+
+// start debian 10 buster container, shell into bash
+docker container run -it --name proxy nginx bash
+# cat /etc/os-release
+
+// start ubuntu 20.04.1 container, shell into bash
+docker container run -it --name ubuntu ubuntu
+# cat /etc/os-release
+# apt-get update
+# apt-get install curl
+# curl google.com
+# exit  // stops container
+
+// start stopped container, shell into bash (default)
+docker container start -ai ubuntu
+# curl google.com
+
+// attach to running container, shell into bash
+docker container exec -it mysql bash
+# apt-get update
+# apt-get install -y procps
+# ps aux
+# exit
+
+docker pull alpine
+docker image ls
+// apline 3.12.0, uses apk package manager
+docker container run -it alpine sh
+# apk fetch coffee
+
+docker container run -p
+docker containter port <container>
+
+docker container run -p 80:80 --name webhost nginx -d nginx
+docker container port webhost
+80/tcp -> 0.0.0.0:80
+
+docker container inspect --format "{{ .NetworkSettings.IPAddress }}" webhost
+ifconfig eth0
 
 
-
-
-
-
-
-
-
+docker network ls
+docker network inspect
+docker network create --driver
+docker network connect
+docker network disconnect
 
